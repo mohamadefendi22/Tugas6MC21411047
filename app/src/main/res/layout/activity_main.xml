@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/btn_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_daftarsultanutsmaniyah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daftar Sultan Utsmaniyah"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:textSize="25sp"
+        android:textColor="#FF6200EE"
+        android:textStyle="bold"
+        />
+
+    <ProgressBar
+        android:id="@+id/myDataLoaderProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateBehavior="cycle"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
