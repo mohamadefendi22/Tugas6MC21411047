@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,6 +51,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         sultanRecyclerView = findViewById(R.id.imageRecyclerview)
         sultanRecyclerView.setHasFixedSize(true)
         sultanRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -77,31 +82,30 @@ class MainActivity : AppCompatActivity() {
                 binding.myDataLoaderProgressBar.visibility = View.GONE
             }
         })
+    }
 
-        binding.btnLogout.setOnClickListener {
-            firebaseAuth.signOut()
-            Intent(this@MainActivity, LoginActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(it)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.mymenu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                logout()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.mymenu,menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
+    private fun logout() {
+        FirebaseAuth.getInstance().signOut()
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.logout -> {
-//                FirebaseAuth.getInstance().signOut()
-//                Intent(this, LoginActivity::class.java).also {
-//                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(it)
-//                }
-//            }
-//        }
-//        return true
-//    }
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
+
+    }
 }
